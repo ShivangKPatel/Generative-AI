@@ -23,6 +23,10 @@ def multiple_lines_plot():
     x = np.linspace(0, 2 * np.pi, 200)
     sin_y = np.sin(x)
     cos_y = np.cos(x)
+    
+    print(sin_y)
+    print(cos_y)
+    
 
     plt.figure(figsize=(6, 4))
     plt.plot(x, sin_y, label="sin(x)", color="red")
