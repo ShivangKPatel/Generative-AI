@@ -42,3 +42,4 @@ htmlcov/
 Thumbs.db
 
 *.ipynb_checkpoints
+cifar-10-batches-py/
