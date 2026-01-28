@@ -1,0 +1,3 @@
+LangChain is a framework for building LLM-powered applications.
+LlamaIndex helps index and query large document collections.
+Vector databases enable semantic search using embeddings.
