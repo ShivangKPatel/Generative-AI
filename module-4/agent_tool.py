@@ -5,18 +5,12 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.tools import tool
 from langchain_core.messages import SystemMessage, ToolMessage, HumanMessage
 
-# -----------------------------
-# LOAD ENV
-# -----------------------------
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY not found")
 
-# -----------------------------
-# DEFINE TOOLS
-# -----------------------------
 @tool
 def add_numbers(a: int, b: int) -> int:
     """Add two numbers and return the result."""
@@ -29,21 +23,14 @@ def get_python_definition() -> str:
 
 tools = [add_numbers, get_python_definition]
 
-# -----------------------------
-# INIT GEMINI LLM
-# -----------------------------
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
     google_api_key=GEMINI_API_KEY,
     temperature=0
 )
 
-# Bind tools to the model
 llm_with_tools = llm.bind_tools(tools)
 
-# -----------------------------
-# AGENT LOOP
-# -----------------------------
 SYSTEM_PROMPT = """
 You are a precise assistant.
 
@@ -86,10 +73,8 @@ def run_agent(user_input: str):
 
         tool = tool_map[tool_name]
 
-        # ✅ Execute tool correctly
         tool_result = tool.run(tool_args)
 
-        # ✅ Send tool result as ToolMessage
         messages.append(response)
         messages.append(
             ToolMessage(
@@ -101,12 +86,8 @@ def run_agent(user_input: str):
         final_response = llm_with_tools.invoke(messages)
         return extract_text(final_response)
 
-    # Normal response
     return extract_text(response)
 
-# -----------------------------
-# DEMO
-# -----------------------------
 if __name__ == "__main__":
     print("🤖 Gemini Tool Agent\n")
 
