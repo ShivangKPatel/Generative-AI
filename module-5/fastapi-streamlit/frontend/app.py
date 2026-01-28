@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
+import os
 
-API_URL = "http://127.0.0.1:8000/chat"
+API_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000/chat")
 
 st.set_page_config(page_title="Gemini Domain Chatbot")
 
